@@ -7,10 +7,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Product Overview"),
+        title: const Text("Product Overview"),
       ),
       body: Container(
-        child: Text("Body"),
+        child: Text(
+          "Body",
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
       ),
     );
   }
