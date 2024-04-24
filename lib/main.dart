@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_sm_app/pages/Product_details_page.dart';
 
 import '../widget/home_page.dart';
 
@@ -47,7 +48,12 @@ class ShoppingApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      //home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(),
+        ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+      },
     );
   }
 }
