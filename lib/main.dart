@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Providers/cart.dart';
+
 import '../Providers/product_providers.dart';
 import '../pages/Product_details_page.dart';
 
@@ -14,9 +16,17 @@ class ShoppingApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      // ////////////// Here is registering the provider class ///////
-      create: (context) => ProductProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          // ////////////// Here is registering the provider class ///////
+          //// We have use Create instade of Value since this is the initial object inistantiation
+          create: (context) => ProductProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Cart(),
+        )
+      ],
       child: MaterialApp(
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -36,7 +46,7 @@ class ShoppingApp extends StatelessWidget {
               color: Color.fromRGBO(50, 76, 105, 1),
             ),
             bodySmall: TextStyle(
-              fontSize: 15,
+              fontSize: 16,
               fontFamily: "Quicksand",
               fontWeight: FontWeight.normal,
               color: Color.fromRGBO(50, 76, 105, 1),
