@@ -20,7 +20,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
-    final cart = Provider.of<Cart>(context, listen: false);
+    //final cart = ;
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -52,7 +52,7 @@ class ProductItem extends StatelessWidget {
               color: Colors.yellowAccent,
             ),
             onPressed: () {
-              cart.addItemToCart(
+              Provider.of<Cart>(context, listen: false).addItemToCart(
                 product.id,
                 product.title,
                 product.price,

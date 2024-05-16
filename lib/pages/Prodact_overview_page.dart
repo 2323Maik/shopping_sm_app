@@ -34,13 +34,15 @@ class ProductOverviewScreenState extends State<ProductOverviewScreen> {
         title: const Text("Product Overview"),
         actions: [
           Consumer<Cart>(
-            builder: (_, carts, _2) => Badges(
+            builder: (_, carts, ch) => MyBadges(
+              value: carts.itemCount.toString(),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  print(carts.itemCount);
+                },
                 icon: Icon(Icons.shopping_cart),
                 color: Colors.yellowAccent,
               ),
-              value: carts.itemCount.toString(),
             ),
           ),
           PopupMenuButton(
