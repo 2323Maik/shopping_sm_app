@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_sm_app/Providers/cart.dart';
+import 'package:shopping_sm_app/pages/cart_page.dart';
 //import 'package:badges/badges.dart' as badges;
 // import 'package:provider/provider.dart';
 
@@ -28,7 +29,6 @@ class ProductOverviewScreenState extends State<ProductOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final providerProv = Provider.of<ProductProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Product Overview"),
@@ -38,7 +38,7 @@ class ProductOverviewScreenState extends State<ProductOverviewScreen> {
               value: carts.itemCount.toString(),
               child: IconButton(
                 onPressed: () {
-                  print(carts.itemCount);
+                  Navigator.of(context).pushNamed(CartScreen.routeName);
                 },
                 icon: Icon(Icons.shopping_cart),
                 color: Colors.yellowAccent,
