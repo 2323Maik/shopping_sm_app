@@ -6,21 +6,10 @@ import '../Providers/cart.dart';
 import '../pages/Product_details_page.dart';
 
 class ProductItem extends StatelessWidget {
-  //const ProductItem({ Key? key }) : super(key: key);
-  // final String id;
-  // final String title;
-  // final String imageURL;
-
-  // ProductItem({
-  //   required this.id,
-  //   required this.title,
-  //   required this.imageURL,
-  // });
-
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
-    //final cart = ;
+    final cart = Provider.of<Cart>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -52,10 +41,26 @@ class ProductItem extends StatelessWidget {
               color: Colors.yellowAccent,
             ),
             onPressed: () {
-              Provider.of<Cart>(context, listen: false).addItemToCart(
+              cart.addItemToCart(
                 product.id,
                 product.title,
                 product.price,
+              );
+              ScaffoldMessenger.of(context)
+                  .hideCurrentSnackBar(); // to hide current snackbar
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text("Added item to cart"),
+                  duration: const Duration(seconds: 3),
+                  backgroundColor: const Color.fromRGBO(0, 153, 202, .6),
+                  action: SnackBarAction(
+                    textColor: Colors.amber,
+                    label: "UNDO",
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
+                  ),
+                ),
               );
             },
           ),
