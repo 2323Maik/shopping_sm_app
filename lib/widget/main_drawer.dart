@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_sm_app/pages/Prodact_overview_page.dart';
 import 'package:shopping_sm_app/pages/order_detail_screen.dart';
+import 'package:shopping_sm_app/pages/user_product_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   //const ({ Key? key }) : super(key: key);
@@ -39,6 +40,16 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .pushReplacementNamed(OrderDetailScreen.routeName);
+              }),
+          ListTile(
+              leading: const Icon(Icons.manage_history),
+              title: Text(
+                "Manage products",
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              onTap: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(UserProductScreen.routeName);
               }),
         ],
       ),

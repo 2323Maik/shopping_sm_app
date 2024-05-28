@@ -50,7 +50,10 @@ class CartItems extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(ctx).pop(true);
                       },
-                      child: const Text("Yes"))
+                      child: const Text(
+                        "Yes",
+                        style: TextStyle(color: Colors.deepOrangeAccent),
+                      ))
                 ],
               )),
       onDismissed: (direction) {
@@ -65,7 +68,7 @@ class CartItems extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: const Color.fromRGBO(0, 153, 202, .5),
             child: Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: FittedBox(
                 child: Text('\$$price'),
               ),

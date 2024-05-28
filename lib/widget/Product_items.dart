@@ -31,6 +31,22 @@ class ProductItem extends StatelessWidget {
                   color: Colors.pink),
               onPressed: () {
                 ppp.toggleFavorite();
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                product.isFavorite
+                    ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text("Added to favorite"),
+                        backgroundColor: Colors.black45,
+                        duration: const Duration(seconds: 3),
+                        //showCloseIcon: true,
+                        action: SnackBarAction(
+                          label: "UNDO",
+                          textColor: Colors.amber,
+                          onPressed: () {
+                            product.removeFavorite();
+                          },
+                        ),
+                      ))
+                    : null;
               },
             ),
             //////////// child:Text(""),
@@ -52,7 +68,8 @@ class ProductItem extends StatelessWidget {
                 SnackBar(
                   content: const Text("Added item to cart"),
                   duration: const Duration(seconds: 3),
-                  backgroundColor: const Color.fromRGBO(0, 153, 202, .6),
+                  backgroundColor: Colors.black45,
+                  //backgroundColor: const Color.fromRGBO(0, 153, 202, .6),
                   action: SnackBarAction(
                     textColor: Colors.amber,
                     label: "UNDO",

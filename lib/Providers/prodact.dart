@@ -22,4 +22,9 @@ class Product with ChangeNotifier {
 
     notifyListeners();
   }
+
+  void removeFavorite() {
+    isFavorite = false;
+    notifyListeners();
+  }
 }

@@ -38,7 +38,7 @@ class OrderDetailScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     Text(
-                      "Oops! Your order page is Empty!",
+                      "Oops! you don't have new order!",
                       style: Theme.of(context).textTheme.bodyMedium,
                     )
                   ],
