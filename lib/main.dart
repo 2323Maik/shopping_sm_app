@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:shopping_sm_app/Providers/order.dart';
 import 'package:shopping_sm_app/pages/Prodact_overview_page.dart';
+import '../pages/edit_product_screen.dart';
 import 'package:shopping_sm_app/pages/order_detail_screen.dart';
 import '../pages/user_product_screen.dart';
 
@@ -80,6 +82,7 @@ class ShoppingApp extends StatelessWidget {
           CartScreen.routeName: (context) => CartScreen(),
           OrderDetailScreen.routeName: (context) => OrderDetailScreen(),
           UserProductScreen.routeName: (context) => UserProductScreen(),
+          EditProductScreen.routeName: (context) => EditProductScreen(),
         },
       ),
     );

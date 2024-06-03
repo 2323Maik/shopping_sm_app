@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_sm_app/Providers/product_providers.dart';
-import 'package:shopping_sm_app/widget/user_product_item.dart';
+import 'package:shopping_sm_app/pages/edit_product_screen.dart';
+import '../Providers/product_providers.dart';
+import '../widget/user_product_item.dart';
 import '../widget/main_drawer.dart';
 
 class UserProductScreen extends StatelessWidget {
@@ -19,7 +20,9 @@ class UserProductScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(EditProductScreen.routeName);
+            },
             icon: const Icon(Icons.add),
           )
         ],
@@ -29,9 +32,17 @@ class UserProductScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
         child: ListView.builder(
-          itemBuilder: (ctx, index) => UserProductItem(
-            productData.items[index].title,
-            productData.items[index].imageURL,
+          itemBuilder: (ctx, index) => Dismissible(
+            key: ValueKey(productData),
+            direction: DismissDirection.endToStart,
+            background: Container(
+              color: Colors.redAccent,
+              margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
+            ),
+            child: UserProductItem(
+              productData.items[index].title,
+              productData.items[index].imageURL,
+            ),
           ),
           itemCount: productData.items.length,
         ),

@@ -39,7 +39,7 @@ class CartScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     Text(
-                      "Your Shopping Cart is Empty!",
+                      "Oops your shopping cart is empty!",
                       style: Theme.of(context).textTheme.bodyMedium,
                     )
                   ],
