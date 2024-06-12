@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import '../pages/edit_product_screen.dart';
 
 class UserProductItem extends StatelessWidget {
   //const UserProductItem({ Key? key }) : super(key: key);
+  final String id;
   final String title;
   final String imageUrl;
 
-  UserProductItem(this.title, this.imageUrl);
+  UserProductItem(this.id, this.title, this.imageUrl);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,11 @@ class UserProductItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
         child: ListTile(
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(imageUrl, scale: 2),
+            //backgroundImage: NetworkImage(imageUrl,scale: 2),
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+            ),
           ),
           title: Text(
             title,
@@ -27,7 +33,10 @@ class UserProductItem extends StatelessWidget {
               child: Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(EditProductScreen.routeName, arguments: id);
+                },
                 icon: Icon(Icons.edit),
               ),
               IconButton(

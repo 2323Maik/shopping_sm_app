@@ -40,6 +40,7 @@ class UserProductScreen extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
             ),
             child: UserProductItem(
+              productData.items[index].id,
               productData.items[index].title,
               productData.items[index].imageURL,
             ),
