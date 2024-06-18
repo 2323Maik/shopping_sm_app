@@ -1,4 +1,7 @@
+import 'dart:convert'; // for converting object to json format
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'prodact.dart';
 
@@ -65,24 +68,48 @@ class ProductProvider with ChangeNotifier {
   }
 
   void addProduct(Product product) {
-    final newProduct = Product(
-      id: product.id,
-      title: product.title,
-      description: product.description,
-      imageURL: product.imageURL,
-      price: product.price,
+    final url =
+        'https://shopping-app-39b8d-default-rtdb.firebaseio.com/Products.json';
+    http
+        .post(
+      Uri.parse(url),
+      body: json.encode({
+        "title": product.title,
+        "description": product.description,
+        "imageUrl": product.imageURL,
+        "isFavorite": product.isFavorite,
+        "price": product.price
+      }),
+    )
+        .then(
+      (response) {
+        //print(json.decode(response.body));
+        final newProduct = Product(
+          id: json.decode(response.body)['name'],
+          title: product.title,
+          description: product.description,
+          imageURL: product.imageURL,
+          price: product.price,
+        );
+        _items.add(newProduct); // adding new product to items list
+        notifyListeners();
+        print('this is new product: $json.decode(newProduct)');
+      },
     );
-    _items.add(newProduct); // adding new product to items list
-    notifyListeners();
   }
 
   void updateProduct(String id, Product newProduct) {
     var prodIndex = _items.indexWhere((prod) => prod.id == id);
-    if (prodIndex != null) {
+    if (prodIndex != "") {
       _items[prodIndex] = newProduct;
       notifyListeners();
     } else {
       print("");
     }
+  }
+
+  void removeProduct(String pId) {
+    _items.removeWhere((curentId) => curentId.id == pId);
+    notifyListeners();
   }
 }

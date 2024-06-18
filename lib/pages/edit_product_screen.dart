@@ -102,6 +102,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
     } else {
       Provider.of<ProductProvider>(context, listen: false)
           .addProduct(_editProduct);
+      print(_editProduct.title);
+      print(_editProduct.description);
+      print(_editProduct.price);
+      print(_editProduct.imageURL);
       Navigator.of(context).pop();
     }
   }
@@ -244,45 +248,44 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         ),
                         Expanded(
                           child: TextFormField(
-                              decoration: InputDecoration(
-                                labelText: "Image url",
-                                labelStyle:
-                                    Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              style: Theme.of(context).textTheme.bodyMedium,
-                              keyboardType: TextInputType.url,
-                              textInputAction: TextInputAction.done,
-                              focusNode: _imageFocusUrl,
-                              controller: _imageUrlController,
-                              onFieldSubmitted: (_) {
-                                _saveForm();
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter a url.";
-                                }
-                                if (!value.startsWith("http") ||
-                                    !value.startsWith("https")) {
-                                  return "Please enter a valid url.";
-                                }
+                            decoration: InputDecoration(
+                              labelText: "Image url",
+                              labelStyle:
+                                  Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            keyboardType: TextInputType.url,
+                            textInputAction: TextInputAction.done,
+                            focusNode: _imageFocusUrl,
+                            controller: _imageUrlController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter a url.";
+                              }
+                              if (!value.startsWith("http") ||
+                                  !value.startsWith("https")) {
+                                return "Please enter a valid url.";
+                              }
 
-                                if (!value.endsWith(".jpg") &&
-                                    !value.endsWith(".jpeg") &&
-                                    !value.endsWith(".png")) {
-                                  return "The image must be one of png,jpg or jpeg";
-                                }
-                                return null;
-                              },
-                              onSaved: (newValue) {
-                                Product(
-                                  id: _editProduct.id,
-                                  isFavorite: _editProduct.isFavorite,
-                                  title: _editProduct.title,
-                                  description: _editProduct.description,
-                                  imageURL: newValue as String,
-                                  price: _editProduct.price,
-                                );
-                              }),
+                              if (!value.endsWith(".jpg") &&
+                                  !value.endsWith(".jpeg") &&
+                                  !value.endsWith(".png")) {
+                                return "The image must be one of png,jpg or jpeg";
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) => Product(
+                              id: _editProduct.id,
+                              isFavorite: _editProduct.isFavorite,
+                              title: _editProduct.title,
+                              description: _editProduct.description,
+                              imageURL: newValue as String,
+                              price: _editProduct.price,
+                            ),
+                            onFieldSubmitted: (_) {
+                              _saveForm();
+                            },
+                          ),
                         ),
                       ],
                     )
