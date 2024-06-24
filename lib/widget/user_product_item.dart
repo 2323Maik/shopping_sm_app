@@ -14,6 +14,8 @@ class UserProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scafold = ScaffoldMessenger.of(context);
+
     return Card(
       color: const Color.fromRGBO(246, 246, 246, 1),
       elevation: 1,
@@ -21,11 +23,11 @@ class UserProductItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
         child: ListTile(
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(imageUrl, scale: 1),
-            /*child: Image.network(
+            //backgroundImage: NetworkImage(imageUrl, scale: 1),
+            child: Image.network(
               imageUrl,
               fit: BoxFit.cover,
-            ),*/
+            ),
           ),
           title: Text(
             title,
@@ -43,9 +45,17 @@ class UserProductItem extends StatelessWidget {
                 icon: Icon(Icons.edit),
               ),
               IconButton(
-                onPressed: () {
-                  Provider.of<ProductProvider>(context, listen: false)
-                      .removeProduct(id);
+                onPressed: () async {
+                  try {
+                    await Provider.of<ProductProvider>(context, listen: false)
+                        .removeProduct(id);
+                  } catch (error) {
+                    scafold.showSnackBar(SnackBar(
+                        content: Text(
+                      'Deleting faild',
+                      textAlign: TextAlign.center,
+                    )));
+                  }
                   // Navigator.of(context).pop();
                 },
                 icon: Icon(Icons.delete),
