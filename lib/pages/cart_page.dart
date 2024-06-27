@@ -39,7 +39,7 @@ class CartScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     Text(
-                      "Oops your shopping cart is empty!",
+                      "Oops!! your shopping cart is empty!",
                       style: Theme.of(context).textTheme.bodyMedium,
                     )
                   ],
@@ -67,25 +67,7 @@ class CartScreen extends StatelessWidget {
                               const Color.fromRGBO(0, 153, 202, 0.6),
                         ),
                         const Spacer(),
-                        TextButton(
-                            onPressed: () {
-                              Provider.of<Order>(context, listen: false)
-                                  .addOrders(
-                                cart.items.values.toList(),
-                                cart.totalAmount,
-                              );
-                              Navigator.pushReplacementNamed(
-                                  context, OrderDetailScreen.routeName);
-                              cart.clearCart();
-                            },
-                            child: const Text(
-                              "Order Now",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromRGBO(0, 153, 202, 1),
-                              ),
-                            ))
+                        OrderButton(cart: cart)
                       ],
                     ),
                   ),
@@ -104,5 +86,52 @@ class CartScreen extends StatelessWidget {
               ],
             ),
     );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    super.key,
+    required this.cart,
+  });
+
+  final Cart cart;
+
+  @override
+  State<OrderButton> createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  @override
+  Widget build(BuildContext context) {
+    var _isLoding = false;
+    return TextButton(
+        onPressed: (widget.cart.totalAmount <= 0 || _isLoding)
+            ? null
+            : () async {
+                setState(() {
+                  _isLoding = true;
+                });
+                await Provider.of<Order>(context, listen: false).addOrders(
+                  widget.cart.items.values.toList(),
+                  widget.cart.totalAmount,
+                );
+                setState(() {
+                  _isLoding = false;
+                });
+                Navigator.pushReplacementNamed(
+                    context, OrderDetailScreen.routeName);
+                widget.cart.clearCart();
+              },
+        child: _isLoding
+            ? CircularProgressIndicator()
+            : const Text(
+                "Order Now",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(0, 153, 202, 1),
+                ),
+              ));
   }
 }

@@ -45,9 +45,9 @@ class OrderItemState extends State<OrderItem> {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-                height: min(widget.orders.productTtems.length * 20.0 + 20, 100),
+                height: min(widget.orders.productItems.length * 20.0 + 20, 100),
                 child: ListView(children: [
-                  ...widget.orders.productTtems.map((e) {
+                  ...widget.orders.productItems.map((e) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
