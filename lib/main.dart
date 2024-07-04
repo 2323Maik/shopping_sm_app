@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_sm_app/pages/login_screen.dart';
+
 import 'package:shopping_sm_app/pages/signup_screen.dart';
+import 'package:shopping_sm_app/pages/welcome_screen.dart';
 
 import '../Providers/order.dart';
 import '../pages/Prodact_overview_page.dart';
@@ -77,7 +79,7 @@ class ShoppingApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         //home: MyHomePage(),
         //initialRoute: '/',
-        home: SignupScreen(),
+        home: WelcomeScreen(),
         routes: {
           //'/': (context) => MyHomePage(),
           MyHomePage.routeName: (context) => MyHomePage(),
@@ -87,6 +89,8 @@ class ShoppingApp extends StatelessWidget {
           OrderDetailScreen.routeName: (context) => OrderDetailScreen(),
           UserProductScreen.routeName: (context) => UserProductScreen(),
           EditProductScreen.routeName: (context) => const EditProductScreen(),
+          LoginScreen.routeName: (context) => const LoginScreen(),
+          SignupScreen.routName: (context) => const SignupScreen(),
         },
       ),
     );

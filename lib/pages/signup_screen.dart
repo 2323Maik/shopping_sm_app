@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_sm_app/pages/Prodact_overview_page.dart';
+import 'package:shopping_sm_app/pages/login_screen.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
   static const routName = "/signup-screen";
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final _signupData = {
+    'fullName': '',
+    'email': '',
+    'password': '',
+    'confirmPassword': ''
+  };
+  final _formKey = GlobalKey<FormState>();
+  var _showPassword = true;
+  final _passwordController = TextEditingController();
+
+  void _submitForm() {
+    final isValid = _formKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+
+    _formKey.currentState!.save();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,64 +69,118 @@ class SignupScreen extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
+                child: SingleChildScrollView(
+                    child: Column(
                   children: [
-                    TextField(
-                      decoration: const InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.check,
-                            color: Colors.grey,
+                    Form(
+                        key: _formKey,
+                        child: Column(children: [
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                suffixIcon:
+                                    Icon(Icons.check, color: Colors.grey),
+                                label: Text("Full Name",
+                                    style: TextStyle(
+                                        color: Color(0xFF0099CA),
+                                        fontSize: 18))),
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your name";
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _signupData['fullName'] = value.toString();
+                            },
                           ),
-                          label: Text(
-                            "Full Name",
-                            style: TextStyle(
-                              color: Color(0xFF0099CA),
-                              fontSize: 18,
-                            ),
-                          )),
-                    ),
-                    TextField(
-                      decoration: const InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.check,
-                            color: Colors.grey,
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                suffixIcon:
+                                    Icon(Icons.check, color: Colors.grey),
+                                label: Text("Phone or email",
+                                    style: TextStyle(
+                                        color: Color(0xFF0099CA),
+                                        fontSize: 18))),
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (value) {
+                              if (value!.isEmpty ||
+                                  !value.contains('@') ||
+                                  !value.contains(".")) {
+                                return "Invalid email address you enterd";
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              _signupData['email'] = newValue.toString();
+                            },
                           ),
-                          label: Text(
-                            "Phone or email",
-                            style: TextStyle(
-                              color: Color(0xFF0099CA),
-                              fontSize: 18,
-                            ),
-                          )),
-                    ),
-                    TextField(
-                      decoration: const InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.visibility_off,
-                            color: Colors.grey,
+                          TextFormField(
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _showPassword = !_showPassword;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      _showPassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: Colors.grey,
+                                    )),
+                                label: const Text("Password",
+                                    style: TextStyle(
+                                        color: Color(0xFF0099CA),
+                                        fontSize: 18))),
+                            textInputAction: TextInputAction.next,
+                            obscureText: _showPassword,
+                            controller: _passwordController,
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a passwerd';
+                              }
+                              if (value.length <= 5) {
+                                return "Password is too short";
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              _signupData['password'] = newValue.toString();
+                            },
                           ),
-                          label: Text(
-                            "Password",
-                            style: TextStyle(
-                              color: Color(0xFF0099CA),
-                              fontSize: 18,
-                            ),
-                          )),
-                    ),
-                    TextField(
-                      decoration: const InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.visibility_off,
-                            color: Colors.grey,
+                          TextFormField(
+                            decoration: InputDecoration(
+                                label: Text("Confirm Password",
+                                    style: TextStyle(
+                                        color: Color(0xFF0099CA),
+                                        fontSize: 18))),
+                            textInputAction: TextInputAction.done,
+                            keyboardType: TextInputType.emailAddress,
+                            obscureText: _showPassword,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a passwerd';
+                              }
+                              if (value != _passwordController.text) {
+                                return "Password does not match";
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              _signupData['confirmPassword'] =
+                                  newValue.toString();
+                              Navigator.of(context)
+                                  .pushNamed(ProductOverviewScreen.routeName);
+                            },
+                            onFieldSubmitted: (_) {
+                              _submitForm();
+                            },
                           ),
-                          label: Text(
-                            "Confirm Password",
-                            style: TextStyle(
-                              color: Color(0xFF0099CA),
-                              fontSize: 18,
-                            ),
-                          )),
-                    ),
+                        ])),
                     SizedBox(
                       height: mediaqWheight * .06,
                     ),
@@ -116,7 +196,9 @@ class SignupScreen extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.center,
                           child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _submitForm();
+                              },
                               child: const Text("SIGN UP",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -136,7 +218,10 @@ class SignupScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed(LoginScreen.routeName);
+                              },
                               child: Text(
                                 "Sign in",
                                 style: Theme.of(context).textTheme.bodyMedium,
@@ -145,7 +230,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                     )
                   ],
-                ),
+                )),
               )),
         ),
       ]),

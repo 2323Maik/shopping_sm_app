@@ -90,10 +90,12 @@ class ProductItem extends StatelessWidget {
               arguments: product.id,
             );
           },
-          child: Image.network(
-            product.imageURL,
-            fit: BoxFit.cover,
-          ),
+          child: Padding(
+              padding: EdgeInsets.only(top: 2),
+              child: Image.network(
+                product.imageURL,
+                fit: BoxFit.cover,
+              )),
         ),
       ),
     );

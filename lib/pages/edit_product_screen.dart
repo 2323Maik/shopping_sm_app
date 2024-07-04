@@ -197,9 +197,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               if (value!.isEmpty) {
                                 return "Please enter a title";
                               }
-                              return null;
+                              //return ;
                             },
-                            onSaved: (newValue) => Product(
+                            onSaved: (newValue) => _editProduct = Product(
                               id: _editProduct.id,
                               isFavorite: _editProduct.isFavorite,
                               title: newValue as String,
@@ -233,9 +233,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               if (double.parse(value) <= 0) {
                                 return "Please enter a price greater than 0";
                               }
-                              return null;
+                              //return null;
                             },
-                            onSaved: (newValue) => Product(
+                            onSaved: (newValue) => _editProduct = Product(
                               id: _editProduct.id,
                               isFavorite: _editProduct.isFavorite,
                               title: _editProduct.title,
@@ -267,7 +267,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 return "description should be at list 10 charactors ";
                               }
                             },
-                            onSaved: (newValue) => Product(
+                            onSaved: (newValue) => _editProduct = Product(
                               id: _editProduct.id,
                               isFavorite: _editProduct.isFavorite,
                               title: _editProduct.title,
@@ -321,9 +321,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         !value.endsWith(".png")) {
                                       return "The image must be one of png,jpg or jpeg";
                                     }
-                                    return null;
+                                    //return null;
                                   },
-                                  onSaved: (newValue) => Product(
+                                  onSaved: (newValue) => _editProduct = Product(
                                     id: _editProduct.id,
                                     isFavorite: _editProduct.isFavorite,
                                     title: _editProduct.title,

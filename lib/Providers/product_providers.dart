@@ -8,7 +8,7 @@ import 'prodact.dart';
 
 class ProductProvider with ChangeNotifier {
   List<Product> _items = [
-    Product(
+    /*Product(
       id: 'p1',
       title: 'Red Shirt',
       description: 'A red shirt - it is pretty red!',
@@ -39,7 +39,7 @@ class ProductProvider with ChangeNotifier {
       price: 49.99,
       imageURL:
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
-    ),
+    ),*/
   ];
 
   List<Product> get items {
@@ -72,15 +72,18 @@ class ProductProvider with ChangeNotifier {
   Future<void> fetchAndSetProducts() async {
     final url =
         'https://shopping-app-39b8d-default-rtdb.firebaseio.com/Products.json';
+    final List<Product> loadedProducts = [];
     try {
       final respone = await http.get(Uri.parse(url));
       //print(json.decode(respone.body));
       final extractedData = json.decode(respone.body) as Map<String, dynamic>;
-      final List<Product> loadedProducts = [];
+      if (extractedData == null) {
+        return;
+      }
       extractedData.forEach((key, value) {
         loadedProducts.add(Product(
           id: key,
-          title: value['titlt'],
+          title: value['title'],
           description: value['description'],
           imageURL: value['imageURL'],
           price: value['price'],

@@ -32,15 +32,15 @@ class ProductOverviewScreenState extends State<ProductOverviewScreen> {
   var _isLoading = false;
 
   @override
-  void initState() {
-    // TODO: implement initState
-    //Provider.of<ProductProvider>(context, listen: false).fetchAndSetProducts();
-    /*Future.delayed(Duration.zero).then((value) {
-      Provider.of<ProductProvider>(context).fetchAndSetProducts();
-    });*/
+  // void initState() {
+  //   // TODO: implement initState
+  //   //Provider.of<ProductProvider>(context, listen: false).fetchAndSetProducts();
+  //   Future.delayed(Duration.zero).then((value) {
+  //     Provider.of<ProductProvider>(context).fetchAndSetProducts();
+  //   });
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   void didChangeDependencies() {
     if (_isInite) {
